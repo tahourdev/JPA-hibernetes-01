@@ -1,0 +1,18 @@
+spring:
+  application:
+    name:
+      jpa-hibernate-02_homework
+  datasource:
+    url: jdbc:postgresql://localhost:5435/product
+    password: 123
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+server:
+  port: 9090
