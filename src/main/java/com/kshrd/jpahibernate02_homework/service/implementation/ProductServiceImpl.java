@@ -1,6 +1,7 @@
 package com.kshrd.jpahibernate02_homework.service.implementation;
 
 import com.kshrd.jpahibernate02_homework.dto.request.ProductRequest;
+import com.kshrd.jpahibernate02_homework.exception.BadRequestException;
 import com.kshrd.jpahibernate02_homework.exception.NotFoundException;
 import com.kshrd.jpahibernate02_homework.model.Product;
 import com.kshrd.jpahibernate02_homework.repository.ProductRepository;
@@ -17,6 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(ProductRequest productRequest) {
+        if (productRequest.getQuantity() == 0) throw new BadRequestException("Can't be zero");
         return productRepository.save(productRequest);
     }
 
