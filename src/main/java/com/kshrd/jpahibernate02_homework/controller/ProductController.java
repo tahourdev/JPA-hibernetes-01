@@ -10,13 +10,11 @@ import com.kshrd.jpahibernate02_homework.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,8 +26,8 @@ public class ProductController extends BaseController {
     @GetMapping
     @Operation(summary = "Get all products (paginated)", description = "Returns a paginated list of all products. Accepts page and size as query parameters.")
     public ResponseEntity<ApiResponse<PagedResponseListProduct>> getAllProduct(
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "10") Integer size) {
+            @RequestParam(defaultValue = "1") @Positive Integer page,
+            @RequestParam(defaultValue = "10") @Positive Integer size) {
         PagedResponseListProduct pagedResponseListProduct = PagedResponseListProduct.builder()
                 .items(productService.getAllProduct(page, size))
                 .paginationInfo(new PaginationInfo(page, size, productService.countAllProducts()))
@@ -40,8 +38,8 @@ public class ProductController extends BaseController {
     @GetMapping("/search")
     @Operation(summary = "Search products by name", description = "Returns a list of products that contain the given name (case-insensitive partial match).")
     public ResponseEntity<ApiResponse<PagedResponseListProduct>> searchProduct(@RequestParam String name,
-                                                                    @RequestParam(defaultValue = "1") Integer page,
-                                                                    @RequestParam(defaultValue = "10") Integer size) {
+                                                                    @RequestParam(defaultValue = "1") @Positive Integer page,
+                                                                    @RequestParam(defaultValue = "10") @Positive Integer size) {
         PagedResponseListProduct pagedResponseListProduct = PagedResponseListProduct.builder()
                 .items(productService.searchProduct(page, size, name.trim()))
                 .paginationInfo(new PaginationInfo(page, size, productService.countSearchProducts(page,size,name.trim())))
@@ -77,8 +75,8 @@ public class ProductController extends BaseController {
     @GetMapping("/low-stock")
     @Operation(summary = "Get low stock products", description = "Returns a list of products with quantity less than the specified threshold.")
     public ResponseEntity<ApiResponse<PagedResponseListProduct>> filterProductByQuantity(@RequestParam Integer quantity,
-                                                                                         @RequestParam(defaultValue = "1") Integer page,
-                                                                                         @RequestParam(defaultValue = "10") Integer size) {
+                                                                                         @RequestParam(defaultValue = "1") @Positive Integer page,
+                                                                                         @RequestParam(defaultValue = "10") @Positive Integer size) {
         PagedResponseListProduct pagedResponseListProduct = PagedResponseListProduct.builder()
                 .items(productService.filterProductByQuantity(page, size, quantity))
                 .paginationInfo(new PaginationInfo(page, size, productService.countFilterProducts(page,size,quantity)))
