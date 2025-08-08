@@ -1,10 +1,7 @@
 package com.kshrd.jpahibernate02_homework.dto.request;
 
 import com.kshrd.jpahibernate02_homework.model.Product;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -20,10 +17,12 @@ public class ProductRequest {
 
     @NotNull(message = "Price must not be null")
     @PositiveOrZero(message = "Price must be positive")
+    @Digits(integer = 6, fraction = 2, message = "Invalid price")
     private BigDecimal price;
 
     @NotNull(message = "Quantity must not be null")
     @PositiveOrZero(message = "Quantity must be positive")
+    @Digits(integer = 5, fraction = 0, message = "Only 5 digits allowed")
     private Integer quantity;
 
     public Product toEntity() {

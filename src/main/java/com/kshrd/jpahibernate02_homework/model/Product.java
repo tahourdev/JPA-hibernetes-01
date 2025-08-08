@@ -19,10 +19,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column()
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false, precision = 8, scale = 2)
     private BigDecimal price;
 
+    @Column(nullable = false)
     private Integer quantity;
 }

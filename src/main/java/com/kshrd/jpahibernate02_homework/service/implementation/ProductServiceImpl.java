@@ -19,6 +19,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product createProduct(ProductRequest productRequest) {
         if (productRequest.getQuantity() == 0) throw new BadRequestException("Can't be zero");
+        if (productRequest.getPrice().doubleValue() <= 0) throw new BadRequestException("Can't be zero");
         return productRepository.save(productRequest);
     }
 
