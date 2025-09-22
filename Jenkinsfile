@@ -5,7 +5,7 @@ pipeline {
         DOCKERHUB_REPO = "keanghor31/spring-app01"
         IMAGE_TAG = "${env.BUILD_NUMBER ?: 'latest'}"  // Dynamic tag based on Jenkins build number
         CONTAINER_NAME = "spring-app01-api"            // Your container name
-        DOCKER_IMAGE_FULL = "${DOCKERHUB_REPO}:${IMAGE_TAG}"
+        DOCKER_IMAGE_FULL = "1.0.${DOCKERHUB_REPO}:${IMAGE_TAG}"
     }
 
     stages {
