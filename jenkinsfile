@@ -1,0 +1,25 @@
+pipeline {
+    agent { label "agent-1" }
+
+    stages {
+        stage("Clone Code") {
+            steps {
+                echo "Cloning the repository"
+                git url: "https://github.com/tahourdev/JPA-hibernetes-01.git", branch: "main"
+            }
+        }
+
+        stage("Build") {
+            steps {
+                echo "Building the application (handled in Docker build)"
+            }
+        }
+
+        stage("Deploy with Docker Compose") {
+            steps {
+                echo "Running docker compose"
+                sh 'docker compose up -d'
+            }
+        }
+    }
+}
