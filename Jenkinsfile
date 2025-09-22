@@ -41,29 +41,29 @@ pipeline {
             }
         }
 
-        stage("Deploy with Docker Compose") {
-            steps {
-                script {
-                    def imageFull = "${DOCKERHUB_REPO}:${IMAGE_TAG}"
-                    echo "🚀 Checking current deployment state..."
+        // stage("Deploy with Docker Compose") {
+        //     steps {
+        //         script {
+        //             def imageFull = "${DOCKERHUB_REPO}:${IMAGE_TAG}"
+        //             echo "🚀 Checking current deployment state..."
 
-                    sh """
-                        CURRENT_IMAGE=\$(docker inspect --format='{{.Config.Image}}' $CONTAINER_NAME 2>/dev/null || true)
-                        EXPECTED_IMAGE="${imageFull}"
+        //             sh """
+        //                 CURRENT_IMAGE=\$(docker inspect --format='{{.Config.Image}}' $CONTAINER_NAME 2>/dev/null || true)
+        //                 EXPECTED_IMAGE="${imageFull}"
 
-                        if [ "\$CURRENT_IMAGE" = "\$EXPECTED_IMAGE" ]; then
-                            echo "✅ Container '$CONTAINER_NAME' is already running with image '\$EXPECTED_IMAGE'. Skipping deployment."
-                        else
-                            echo "📦 Current image: '\$CURRENT_IMAGE'"
-                            echo "📦 Expected image: '\$EXPECTED_IMAGE'"
-                            echo "🔄 Deploying container using Docker Compose..."
-                            docker compose down || true
-                            docker compose up -d
-                        fi
-                    """
-                }
-            }
-        }
+        //                 if [ "\$CURRENT_IMAGE" = "\$EXPECTED_IMAGE" ]; then
+        //                     echo "✅ Container '$CONTAINER_NAME' is already running with image '\$EXPECTED_IMAGE'. Skipping deployment."
+        //                 else
+        //                     echo "📦 Current image: '\$CURRENT_IMAGE'"
+        //                     echo "📦 Expected image: '\$EXPECTED_IMAGE'"
+        //                     echo "🔄 Deploying container using Docker Compose..."
+        //                     docker compose down || true
+        //                     docker compose up -d
+        //                 fi
+        //             """
+        //         }
+        //     }
+        // }
     }
 
     post {
