@@ -4,17 +4,18 @@ pipeline {
     environment {
         DOCKERHUB_REPO = "keanghor31/spring-app01"
         IMAGE_NAME = "spring-app01-agent-1-demo-api"
-        IMAGE_TAG = "1.0.1"
-        CONTAINER_NAME = "hw-2-api"  // Your app container name
+        IMAGE_TAG = "1.0.2"
     }
 
     stages {
-        stage("Clone Code") {
-            steps {
-                echo "Cloning the repository"
-                git url: "https://github.com/tahourdev/JPA-hibernetes-01.git", branch: "main"
-            }
-        }
+
+        // Optional: Clone stage if needed
+        // stage("Clone Code") {
+        //     steps {
+        //         echo "Cloning the repository"
+        //         git url: "https://github.com/tahourdev/JPA-hibernetes-01.git", branch: "main"
+        //     }
+        // }
 
         stage("Push to DockerHub") {
             steps {
@@ -59,12 +60,13 @@ pipeline {
         }
     }
 
+    // Optional cleanup or notification
     post {
         success {
-            echo "✅ Pipeline completed successfully."
+            echo "✅ Image pushed to Docker Hub successfully: ${DOCKERHUB_REPO}:${IMAGE_TAG}"
         }
         failure {
-            echo "❌ Pipeline failed."
+            echo "❌ Failed to push Docker image"
         }
     }
 }
