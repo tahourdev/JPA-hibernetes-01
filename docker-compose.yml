@@ -1,6 +1,6 @@
 services:
   demo-api:
-    image: keanghor31/spring-app01:1.0.1
+    image: keanghor31/spring-app01:1.0.2
     container_name: spring-app-demo-api         # 🔁 Renamed container
     depends_on:
       db:
