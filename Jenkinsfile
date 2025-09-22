@@ -8,7 +8,6 @@ pipeline {
     }
 
     stages {
-
         stage("Build Docker Image") {
             steps {
                 script {
@@ -24,6 +23,7 @@ pipeline {
                 script {
                     def imageFull = "${DOCKERHUB_REPO}:${IMAGE_TAG}"
                     echo "📦 Tagging and pushing Docker image to DockerHub..."
+
                     withCredentials([
                         usernamePassword(
                             credentialsId: 'docker-hub-credentials',
@@ -57,7 +57,6 @@ pipeline {
                             echo "📦 Current image: '\$CURRENT_IMAGE'"
                             echo "📦 Expected image: '\$EXPECTED_IMAGE'"
                             echo "🔄 Deploying container using Docker Compose..."
-
                             docker compose down || true
                             docker compose up -d
                         fi
