@@ -32,7 +32,7 @@ pipeline {
         stage("Build Docker Image") {
             steps {
                 script {
-                    docker_build("${DOCKERHUB_REPO}, ${IMAGE_TAG}")
+                    docker_build("keanghor31/spring-app01", "v1.0.${BUILD_NUMBER ?: 'latest'}")
                 }
             }
         }
