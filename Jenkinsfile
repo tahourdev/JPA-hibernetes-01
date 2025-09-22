@@ -1,4 +1,5 @@
 @Library("Shared") _
+
 pipeline {
     agent { label "agent-2" }
 
@@ -8,17 +9,14 @@ pipeline {
         CONTAINER_NAME = "spring-app01-api"
     }
 
-    stages{
-        stage("Hello"{
-            steps{
-                script{
+    stages {
+        stage("Hello") {
+            steps {
+                script {
                     hello()
                 }
             }
         }
-    }
-    
-    stages {
 
         stage("Build Docker Image") {
             steps {
