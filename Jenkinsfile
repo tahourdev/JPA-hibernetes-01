@@ -37,25 +37,33 @@ pipeline {
             }
         }
 
+        // stage("Push to DockerHub") {
+        //     steps {
+        //         script {
+        //             def imageFull = "${DOCKERHUB_REPO}:${IMAGE_TAG}"
+        //             echo "📦 Tagging and pushing Docker image to DockerHub..."
+
+        //             withCredentials([
+        //                 usernamePassword(
+        //                     credentialsId: 'docker-hub-credentials',
+        //                     usernameVariable: 'DOCKERHUB_USER',
+        //                     passwordVariable: 'DOCKERHUB_PASS'
+        //                 )
+        //             ]) {
+        //                 sh """
+        //                     echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
+        //                     docker push ${imageFull}
+        //                     docker logout
+        //                 """
+        //             }
+        //         }
+        //     }
+        // }
+
         stage("Push to DockerHub") {
             steps {
                 script {
-                    def imageFull = "${DOCKERHUB_REPO}:${IMAGE_TAG}"
-                    echo "📦 Tagging and pushing Docker image to DockerHub..."
-
-                    withCredentials([
-                        usernamePassword(
-                            credentialsId: 'docker-hub-credentials',
-                            usernameVariable: 'DOCKERHUB_USER',
-                            passwordVariable: 'DOCKERHUB_PASS'
-                        )
-                    ]) {
-                        sh """
-                            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
-                            docker push ${imageFull}
-                            docker logout
-                        """
-                    }
+                    docker_push("${DOCKERHUB_REPO}", "${IMAGE_TAG}")
                 }
             }
         }
