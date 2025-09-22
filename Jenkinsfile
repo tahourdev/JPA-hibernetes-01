@@ -1,5 +1,3 @@
-@Library("Shared") _
-
 pipeline {
     agent { label "agent-2" }
 
@@ -10,13 +8,6 @@ pipeline {
     }
 
     stages {
-        stage("Hello") {
-            steps {
-                script {
-                    hello()
-                }
-            }
-        }
 
         stage("Build Docker Image") {
             steps {
