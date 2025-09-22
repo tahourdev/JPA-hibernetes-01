@@ -151,14 +151,14 @@ pipeline {
             }
         }
 
-        stage("Deploy") {
-            steps {
-                script {
-                    echo "🚀 Deploying application..."
-                    sh "docker compose up -d"
-                }
-            }
-        }
+        // stage("Deploy") {
+        //     steps {
+        //         script {
+        //             echo "🚀 Deploying application..."
+        //             sh "docker compose up -d"
+        //         }
+        //     }
+        // }
     }
 
     post {
