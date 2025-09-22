@@ -1,16 +1,14 @@
 services:
   demo-api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: hw-2-api
+    image: keanghor31/spring-app01:1.0.1
+    container_name: spring-app-demo-api         # 🔁 Renamed container
     depends_on:
       db:
         condition: service_healthy
     ports:
       - "8081:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://jpa-hibernate-hw-2:5432/product
+      SPRING_DATASOURCE_URL: jdbc:postgresql://spring-app-db:5432/product
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123
     healthcheck:
@@ -23,7 +21,7 @@ services:
       - hw-2
 
   db:
-    container_name: jpa-hibernate-hw-2
+    container_name: spring-app-db               # 🔁 Renamed container
     image: postgres:latest
     restart: always
     ports:
