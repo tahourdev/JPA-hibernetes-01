@@ -1,5 +1,5 @@
 pipeline {
-    agent { label "agent-1" }
+    agent { label "agent-2" }
 
     environment {
         DOCKERHUB_REPO = "keanghor31/spring-app01"
