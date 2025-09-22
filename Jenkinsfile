@@ -11,20 +11,28 @@ pipeline {
 
     stages {
 
-        stage("Hello") {
+        stage("Code") {
             steps {
                 script {
-                    hello()
+                    clone("https://github.com/tahourdev/JPA-hibernetes-01.git", "main")
                 }
             }
         }
         
+        // stage("Build Docker Image") {
+        //     steps {
+        //         script {
+        //             def imageFull = "${DOCKERHUB_REPO}:${IMAGE_TAG}"
+        //             echo "🔧 Building Docker image: ${imageFull}"
+        //             sh "docker build -t ${imageFull} ."
+        //         }
+        //     }
+        // }
+
         stage("Build Docker Image") {
             steps {
                 script {
-                    def imageFull = "${DOCKERHUB_REPO}:${IMAGE_TAG}"
-                    echo "🔧 Building Docker image: ${imageFull}"
-                    sh "docker build -t ${imageFull} ."
+                    docker_build("${DOCKERHUB_REPO}, ${IMAGE_TAG}")
                 }
             }
         }
