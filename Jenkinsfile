@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_REPO = "keanghor31/spring-app01"
-        IMAGE_NAME = "spring-app01-agent-1-demo-api"
+        IMAGE_NAME = "spring-app01"
         IMAGE_TAG = "1.0.2"
     }
 
