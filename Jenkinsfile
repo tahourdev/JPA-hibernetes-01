@@ -39,12 +39,20 @@ pipeline {
 
         stage("Deploy with Docker Compose") {
             steps {
-                echo "🚀 Checking if container '${CONTAINER_NAME}' is running..."
+                echo "🚀 Checking current deployment state..."
                 sh '''
-                    if docker ps --format '{{.Names}}' | grep -wq "$CONTAINER_NAME"; then
-                        echo "✅ Container '$CONTAINER_NAME' is already running. Skipping deployment."
+                    CURRENT_IMAGE=$(docker inspect --format='{{.Config.Image}}' $CONTAINER_NAME 2>/dev/null || true)
+                    EXPECTED_IMAGE="$DOCKERHUB_REPO:$IMAGE_TAG"
+        
+                    if [ "$CURRENT_IMAGE" = "$EXPECTED_IMAGE" ]; then
+                        echo "✅ Container '$CONTAINER_NAME' is already running with image '$EXPECTED_IMAGE'. Skipping deployment."
                     else
-                        echo "📦 Deploying container using Docker Compose..."
+                        echo "📦 Current image: '$CURRENT_IMAGE'"
+                        echo "📦 Expected image: '$EXPECTED_IMAGE'"
+                        echo "🔄 Deploying container using Docker Compose..."
+                        
+                        # Optionally stop and remove existing container before re-deploying
+                        docker compose down || true
                         docker compose up -d
                     fi
                 '''
