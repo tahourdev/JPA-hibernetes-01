@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_REPO = "keanghor31/spring-app01"
-        IMAGE_TAG = "${BUILD_NUMBER ?: 'latest'}"
+        IMAGE_TAG = "v1.0.${BUILD_NUMBER ?: 'latest'}"
         CONTAINER_NAME = "spring-app01-api"
     }
 
