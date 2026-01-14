@@ -1,5 +1,5 @@
 # ប្រើតែ Run Stage បានហើយ ព្រោះ JAR មានស្រាប់ក្នុង Workspace
-FROM eclipse-temurin:21-jre-ubi9-minimal
+FROM docker.io/library/eclipse-temurin:21-jre-ubi9-minimal
 
 WORKDIR /app
 
